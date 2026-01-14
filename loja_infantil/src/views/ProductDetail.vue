@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <Header @toggle-cart="isCartOpen = !isCartOpen" />
+    <Header />
 
     <main class="detail-main">
       <div class="detail-container" v-if="product">
@@ -104,6 +104,32 @@
             </ul>
           </div>
         </section>
+
+        <!-- Produtos relacionados -->
+        <section v-if="relatedProducts.length" class="related-section">
+          <h2 class="related-title">Você também pode gostar</h2>
+          <div class="related-grid">
+            <RouterLink
+              v-for="item in relatedProducts"
+              :key="item.id"
+              :to="{ name: 'product-detail', params: { id: item.id } }"
+              class="related-card"
+            >
+              <div class="related-image-wrapper">
+                <img
+                  :src="item.image"
+                  :alt="item.name"
+                  loading="lazy"
+                  @error="handleImageError"
+                />
+              </div>
+              <div class="related-info">
+                <h3 class="related-name">{{ item.name }}</h3>
+                <p class="related-price">R$ {{ item.price.toFixed(2) }}</p>
+              </div>
+            </RouterLink>
+          </div>
+        </section>
       </div>
 
       <div v-else class="detail-not-found">
@@ -114,7 +140,7 @@
       </div>
     </main>
 
-    <ShoppingCart :is-open="isCartOpen" @close="isCartOpen = false" />
+    <ShoppingCart :is-open="cartStore.isCartOpen.value" @close="cartStore.closeCart" />
     <Footer />
     <WhatsAppButton />
   </div>
@@ -134,14 +160,20 @@ import { useCartStore } from '../stores/cart';
 
 const route = useRoute();
 const cartStore = useCartStore();
-
-const isCartOpen = ref(false);
 const selectedSize = ref('');
 const selectedColor = ref('');
 
 const product = computed(() => {
   const id = Number(route.params.id);
   return products.find(p => p.id === id);
+});
+
+const relatedProducts = computed(() => {
+  if (!product.value) return [];
+  // Produtos da mesma categoria, exceto o atual, limitando a 4
+  return products
+    .filter(p => p.category === product.value.category && p.id !== product.value.id)
+    .slice(0, 4);
 });
 
 const discountPercent = computed(() => {
@@ -172,7 +204,7 @@ const handleImageError = (event) => {
 const addToCart = () => {
   if (product.value && selectedSize.value && selectedColor.value) {
     cartStore.addToCart(product.value, selectedSize.value, selectedColor.value);
-    isCartOpen.value = true;
+    cartStore.openCart();
   }
 };
 </script>
@@ -455,6 +487,69 @@ const addToCart = () => {
   margin-top: 0.25rem;
 }
 
+.related-section {
+  margin-top: 3rem;
+}
+
+.related-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 1.5rem 0;
+}
+
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1.25rem;
+}
+
+.related-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.08);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.related-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.15);
+}
+
+.related-image-wrapper {
+  background: #f3f4f6;
+  height: 160px;
+  overflow: hidden;
+}
+
+.related-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.related-info {
+  padding: 0.75rem 0.9rem 1rem;
+}
+
+.related-name {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 0.25rem 0;
+}
+
+.related-price {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #c2185b;
+  margin: 0;
+}
+
 .detail-not-found {
   max-width: 600px;
   margin: 3rem auto;
@@ -502,6 +597,10 @@ const addToCart = () => {
 
   .detail-title {
     font-size: 1.5rem;
+  }
+
+  .related-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 </style>

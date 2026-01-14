@@ -69,7 +69,9 @@
           </div>
           <div v-if="totalPrice < 200" class="min-order-warning">
             <IconWarning class="warning-icon" />
-            Valor mínimo de compra: R$ 200,00
+            <span v-if="remainingForFreeShipping > 0">
+              Faltam <strong>R$ {{ remainingForFreeShipping.toFixed(2) }}</strong> para ganhar <strong>frete grátis</strong>.
+            </span>
           </div>
         </div>
         
@@ -107,6 +109,10 @@ const { cart, updateQuantity: updateCartQuantity, removeFromCart } = cartStore;
 
 const totalPrice = computed(() => cartStore.totalPrice);
 const shippingCost = computed(() => totalPrice.value >= 200 ? 0 : 15.00);
+const remainingForFreeShipping = computed(() => {
+  const remaining = 200 - totalPrice.value;
+  return remaining > 0 ? remaining : 0;
+});
 
 const updateQuantity = (index, quantity) => {
   cartStore.updateQuantity(index, quantity);

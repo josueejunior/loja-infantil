@@ -67,6 +67,14 @@
         <IconShopping v-if="product.inStock" class="btn-icon" />
         {{ product.inStock ? 'Adicionar ao Carrinho' : 'Sem Estoque' }}
       </button>
+
+      <button 
+        class="view-details-link"
+        type="button"
+        @click="goToDetail"
+      >
+        Ver detalhes do produto
+      </button>
     </div>
     
     <!-- Modal para seleção de tamanho e cor -->
@@ -401,6 +409,25 @@ const handleImageError = (event) => {
 .add-to-cart-btn:disabled {
   background: #ccc;
   cursor: not-allowed;
+}
+
+.view-details-link {
+  margin-top: 0.35rem;
+  background: none;
+  border: none;
+  padding: 0;
+  color: #6b7280;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  align-self: flex-start;
+  transition: color 0.2s ease;
+}
+
+.view-details-link:hover {
+  color: #e91e63;
 }
 
 /* Modal Styles */

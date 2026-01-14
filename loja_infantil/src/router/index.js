@@ -1,30 +1,26 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import App from '../App.vue';
-import ProductDetail from '../views/ProductDetail.vue';
-import About from '../views/About.vue';
-import Contact from '../views/Contact.vue';
 
 const routes = [
   {
     path: '/',
     name: 'home',
-    component: App
+    component: () => import('../App.vue')
   },
   {
     path: '/produto/:id',
     name: 'product-detail',
-    component: ProductDetail,
+    component: () => import('../views/ProductDetail.vue'),
     props: true
   },
   {
     path: '/sobre',
     name: 'about',
-    component: About
+    component: () => import('../views/About.vue')
   },
   {
     path: '/contato',
     name: 'contact',
-    component: Contact
+    component: () => import('../views/Contact.vue')
   }
 ];
 
