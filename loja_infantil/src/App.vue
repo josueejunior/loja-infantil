@@ -354,13 +354,14 @@ const clearAllFilters = () => {
 }
 
 .products-header h2 {
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: #1f2937;
+  font-size: 1.875rem;
+  font-weight: 800;
+  color: #111827;
   margin: 0;
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  letter-spacing: -0.5px;
 }
 
 .header-left {
@@ -378,9 +379,9 @@ const clearAllFilters = () => {
 }
 
 .products-count {
-  font-size: 0.875rem;
-  color: #6b7280;
-  font-weight: 500;
+  font-size: 0.9375rem;
+  color: #4b5563;
+  font-weight: 600;
 }
 
 .sort-controls {
@@ -390,22 +391,23 @@ const clearAllFilters = () => {
 }
 
 .sort-controls label {
-  font-weight: 600;
-  color: #6b7280;
-  font-size: 0.875rem;
+  font-weight: 700;
+  color: #374151;
+  font-size: 0.9375rem;
 }
 
 .sort-select {
-  padding: 0.625rem 1rem;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
+  padding: 0.75rem 1.125rem;
+  border: 1.5px solid #d1d5db;
+  border-radius: 10px;
   background: white;
   cursor: pointer;
-  font-size: 0.875rem;
-  color: #374151;
-  font-weight: 500;
+  font-size: 0.9375rem;
+  color: #1f2937;
+  font-weight: 600;
   transition: all 0.2s ease;
   min-width: 200px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .sort-select:hover {
@@ -447,9 +449,10 @@ const clearAllFilters = () => {
 }
 
 .no-products p {
-  color: #6b7280;
+  color: #374151;
   font-size: 1.125rem;
   margin: 0;
+  font-weight: 500;
 }
 
 .clear-filters-link {

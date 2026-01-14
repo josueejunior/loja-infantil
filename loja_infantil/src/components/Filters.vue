@@ -436,13 +436,14 @@ onMounted(() => {
 }
 
 .filters-title {
-  font-size: 1.125rem;
-  font-weight: 700;
-  color: #1f2937;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #111827;
   margin: 0;
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  letter-spacing: -0.3px;
 }
 
 .title-icon {
@@ -496,8 +497,8 @@ onMounted(() => {
   display: flex;
   align-items: center;
   gap: 0.625rem;
-  font-weight: 600;
-  color: #374151;
+  font-weight: 700;
+  color: #1f2937;
   font-size: 0.9375rem;
 }
 
