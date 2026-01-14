@@ -74,7 +74,7 @@ import IconTruck from './icons/IconTruck.vue';
 
 <style scoped>
 .footer {
-  background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+  background: linear-gradient(135deg, #9f1239 0%, #be185d 35%, #db2777 70%, #f472b6 100%);
   color: white;
   margin-top: 4rem;
   padding-top: 3rem;
